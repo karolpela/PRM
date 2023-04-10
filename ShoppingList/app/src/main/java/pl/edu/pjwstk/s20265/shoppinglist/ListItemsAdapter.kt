@@ -5,23 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import pl.edu.pjwstk.s20265.shoppinglist.databinding.ListItemBinding
 import java.math.BigDecimal
-import java.text.NumberFormat
-import java.util.*
 
 //TODO create a viewholder for total and items checked?
 
 class ListItemViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(listItem: ListItem) {
         binding.itemName.text = listItem.name
-        binding.itemPrice.text = priceFormat.format(listItem.price)
+        binding.itemPrice.text = DataSource.priceFormat.format(listItem.price)
+        binding.itemCount.text =
+            itemView.context.getString(R.string.list_item_count, listItem.count)
         binding.itemImage.setImageResource(listItem.resId)
     }
 
-    companion object {
-        val priceFormat: NumberFormat = NumberFormat.getCurrencyInstance().also {
-            it.maximumFractionDigits = 2
-        }
-    }
+
 }
 
 class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
@@ -50,7 +46,7 @@ class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
     }
 
     fun getTotalPrice(): BigDecimal {
-        return data.sumOf { item -> item.price }
+        return data.sumOf { item -> item.price * BigDecimal(item.count) }
     }
 }
 

@@ -5,8 +5,8 @@ import java.math.BigDecimal
 
 data class ListItem(
     val name: String,
-    val count: Int,
     val price: BigDecimal,
+    val count: Int,
     val note: String,
     @DrawableRes
     val resId: Int

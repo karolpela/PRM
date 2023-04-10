@@ -34,8 +34,8 @@ class EditFragment : Fragment() {
         binding.editButtonSave.setOnClickListener {
             val newItem = ListItem(
                 binding.editItemName.text.toString(),
-                binding.editItemCount.text.toString().toInt(),
                 binding.editItemPrice.text.toString().toBigDecimal(),
+                binding.editItemCount.text.toString().toInt(),
                 binding.editItemNotes.text.toString(),
                 adapter.selectedResId
             )
