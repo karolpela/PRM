@@ -1,9 +1,10 @@
-package pl.edu.pjwstk.s20265.shoppinglist
+package pl.edu.pjwstk.s20265.shoppinglist.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import pl.edu.pjwstk.s20265.shoppinglist.R
 import pl.edu.pjwstk.s20265.shoppinglist.databinding.EditPickerImageBinding
 
 class ItemImageViewHolder(val binding: EditPickerImageBinding) :

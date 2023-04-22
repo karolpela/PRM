@@ -2,6 +2,8 @@ package pl.edu.pjwstk.s20265.shoppinglist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import pl.edu.pjwstk.s20265.shoppinglist.fragments.EditFragment
+import pl.edu.pjwstk.s20265.shoppinglist.fragments.ListFragment
 
 class MainActivity : AppCompatActivity(), Navigable {
 
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity(), Navigable {
                             listFragment.javaClass.name
                         )
                     }
+
                     Navigable.Destination.Add -> {
                         addToBackStack(EditFragment::javaClass.name)
                         replace(

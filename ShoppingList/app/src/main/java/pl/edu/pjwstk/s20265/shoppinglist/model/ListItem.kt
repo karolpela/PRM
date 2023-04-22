@@ -1,4 +1,4 @@
-package pl.edu.pjwstk.s20265.shoppinglist
+package pl.edu.pjwstk.s20265.shoppinglist.model
 
 import androidx.annotation.DrawableRes
 import java.math.BigDecimal

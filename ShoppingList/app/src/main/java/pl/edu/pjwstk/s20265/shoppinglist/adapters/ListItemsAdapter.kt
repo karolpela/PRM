@@ -1,9 +1,12 @@
-package pl.edu.pjwstk.s20265.shoppinglist
+package pl.edu.pjwstk.s20265.shoppinglist.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import pl.edu.pjwstk.s20265.shoppinglist.R
+import pl.edu.pjwstk.s20265.shoppinglist.data.DataSource
 import pl.edu.pjwstk.s20265.shoppinglist.databinding.ListItemBinding
+import pl.edu.pjwstk.s20265.shoppinglist.model.ListItem
 import java.math.BigDecimal
 
 //TODO create a viewholder for total and items checked?

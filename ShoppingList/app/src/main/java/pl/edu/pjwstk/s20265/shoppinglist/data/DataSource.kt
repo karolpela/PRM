@@ -1,5 +1,7 @@
-package pl.edu.pjwstk.s20265.shoppinglist
+package pl.edu.pjwstk.s20265.shoppinglist.data
 
+import pl.edu.pjwstk.s20265.shoppinglist.model.ListItem
+import pl.edu.pjwstk.s20265.shoppinglist.R
 import java.math.BigDecimal
 import java.text.NumberFormat
 
