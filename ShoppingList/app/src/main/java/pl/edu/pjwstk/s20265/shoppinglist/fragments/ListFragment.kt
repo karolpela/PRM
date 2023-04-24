@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import pl.edu.pjwstk.s20265.shoppinglist.ListItemsAdapter
 import pl.edu.pjwstk.s20265.shoppinglist.Navigable
 import pl.edu.pjwstk.s20265.shoppinglist.R
+import pl.edu.pjwstk.s20265.shoppinglist.adapters.ListItemsAdapter
 import pl.edu.pjwstk.s20265.shoppinglist.data.DataSource
 import pl.edu.pjwstk.s20265.shoppinglist.databinding.FragmentListBinding
 import java.text.NumberFormat
@@ -31,6 +31,7 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = ListItemsAdapter().apply {
             replace(DataSource.listItems)
+            sort()
         }
 
         binding.listItems.let {
@@ -49,6 +50,7 @@ class ListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         adapter.replace(DataSource.listItems)
+        adapter.sort()
     }
 
     companion object {

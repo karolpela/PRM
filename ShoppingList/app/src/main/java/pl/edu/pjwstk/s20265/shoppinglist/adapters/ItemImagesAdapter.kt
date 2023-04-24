@@ -18,8 +18,24 @@ class ItemImageViewHolder(val binding: EditPickerImageBinding) :
 }
 
 
-class ItemImagesAdapter : RecyclerView.Adapter<ItemImageViewHolder>() {
-    private val images = listOf(R.drawable.cake, R.drawable.cherry)
+class ItemImagesAdapter(private val resId: Int?) : RecyclerView.Adapter<ItemImageViewHolder>() {
+    private var images = listOf(
+        R.drawable.item_cake,
+        R.drawable.item_cherry,
+        R.drawable.item_donut,
+        R.drawable.item_eggplant,
+        R.drawable.item_grape,
+        R.drawable.item_icecream,
+        R.drawable.item_mushroom,
+        R.drawable.item_onigiri,
+        R.drawable.item_peach,
+        R.drawable.item_pear,
+        R.drawable.item_pomelo,
+        R.drawable.item_shrimp,
+        R.drawable.item_strawberry,
+        R.drawable.item_tomato,
+        R.drawable.item_watermelon,
+    )
     private var selectedPosition: Int = 0
     val selectedResId: Int
         get() = images[selectedPosition]
@@ -31,6 +47,9 @@ class ItemImagesAdapter : RecyclerView.Adapter<ItemImageViewHolder>() {
             false
         )
         return ItemImageViewHolder(binding).also { vh ->
+            if (resId != null) {
+                selectedPosition = images.indexOf(resId)
+            }
             binding.root.setOnClickListener {
                 notifyItemChanged(selectedPosition)
                 selectedPosition = vh.layoutPosition
@@ -44,5 +63,4 @@ class ItemImagesAdapter : RecyclerView.Adapter<ItemImageViewHolder>() {
     }
 
     override fun getItemCount(): Int = images.size
-
 }

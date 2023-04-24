@@ -7,7 +7,7 @@ data class ListItem(
     val name: String,
     val price: BigDecimal,
     val count: Int,
-    val note: String,
+    val notes: String,
     @DrawableRes
     val resId: Int
 )

@@ -1,7 +1,8 @@
 package pl.edu.pjwstk.s20265.shoppinglist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import pl.edu.pjwstk.s20265.shoppinglist.fragments.DetailsFragment
 import pl.edu.pjwstk.s20265.shoppinglist.fragments.EditFragment
 import pl.edu.pjwstk.s20265.shoppinglist.fragments.ListFragment
 
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity(), Navigable {
             .commit()
     }
 
-    override fun navigate(to: Navigable.Destination) {
+    override fun navigate(to: Navigable.Destination, itemIndex: Int) {
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 R.anim.slide_in,
@@ -43,8 +44,26 @@ class MainActivity : AppCompatActivity(), Navigable {
                         addToBackStack(EditFragment::javaClass.name)
                         replace(
                             R.id.container,
-                            EditFragment(),
+                            EditFragment(itemIndex),
                             EditFragment::javaClass.name
+                        )
+                    }
+
+                    Navigable.Destination.Edit -> {
+                        addToBackStack(EditFragment::javaClass.name)
+                        replace(
+                            R.id.container,
+                            EditFragment(itemIndex),
+                            EditFragment::javaClass.name
+                        )
+                    }
+
+                    Navigable.Destination.Details -> {
+                        addToBackStack(DetailsFragment::javaClass.name)
+                        replace(
+                            R.id.container,
+                            DetailsFragment(itemIndex),
+                            DetailsFragment::javaClass.name
                         )
                     }
                 }
