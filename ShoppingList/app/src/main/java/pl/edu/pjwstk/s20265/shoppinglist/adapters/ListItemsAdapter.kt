@@ -1,5 +1,6 @@
 package pl.edu.pjwstk.s20265.shoppinglist.adapters
 
+import android.app.AlertDialog
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -45,8 +46,24 @@ class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
                     vh.layoutPosition
                 )
             }
+            binding.root.setOnLongClickListener {
+                val dialog = AlertDialog.Builder(parent.context)
+                    .setTitle(parent.context.getString(R.string.list_dialog_delete_title))
+                    .setMessage(parent.context.getString(R.string.list_dialog_delete_message))
+                    .setPositiveButton(
+                        parent.context.getString(R.string.dialog_button_delete)
+                    ) { _, _ ->
+                        data.removeAt(vh.layoutPosition)
+                        notifyItemRemoved(vh.layoutPosition)
+                    }
+                    .setNegativeButton(parent.context.getString(R.string.dialog_button_cancel)) { _, _ -> }
+                    .create()
+                dialog.show()
+                return@setOnLongClickListener true
+            }
         }
     }
+
 
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
         holder.bind(data[position])

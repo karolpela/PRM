@@ -52,7 +52,7 @@ class EditFragment(private val itemIndex: Int) : Fragment() {
                 adapter.selectedResId
             )
 
-            if (itemIndex != -1) {
+            if (itemIndex != -1) { //TODO change to null?
                 DataSource.listItems[itemIndex] = newItem
             } else {
                 DataSource.listItems.add(newItem)

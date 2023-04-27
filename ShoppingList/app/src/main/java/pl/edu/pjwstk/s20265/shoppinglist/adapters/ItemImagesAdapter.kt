@@ -36,20 +36,22 @@ class ItemImagesAdapter(private val resId: Int?) : RecyclerView.Adapter<ItemImag
         R.drawable.item_tomato,
         R.drawable.item_watermelon,
     )
-    private var selectedPosition: Int = 0
+
+//    private var images = ArrayList<Int>()
+
+    private var selectedPosition: Int = if (resId != null) images.indexOf(resId) else 0
     val selectedResId: Int
         get() = images[selectedPosition]
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemImageViewHolder {
+//        images.addAll(parent.context.resources.getIntArray(R.array.items).asList())
+
         val binding = EditPickerImageBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
         return ItemImageViewHolder(binding).also { vh ->
-            if (resId != null) {
-                selectedPosition = images.indexOf(resId)
-            }
             binding.root.setOnClickListener {
                 notifyItemChanged(selectedPosition)
                 selectedPosition = vh.layoutPosition

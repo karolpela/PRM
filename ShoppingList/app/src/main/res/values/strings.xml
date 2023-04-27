@@ -5,4 +5,8 @@
     <string name="list_fab_action">Add</string>
     <string name="list_total">Total: %1$s</string>
     <string name="list_item_count">x%1$d</string>
+    <string name="list_dialog_delete_title">Delete item?</string>
+    <string name="list_dialog_delete_message">This will permanently delete this item.</string>
+    <string name="dialog_button_delete">Delete</string>
+    <string name="dialog_button_cancel">Cancel</string>
 </resources>
