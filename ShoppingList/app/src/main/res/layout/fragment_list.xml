@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.12" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/listButtonAdd"
@@ -43,26 +43,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/gabriela"
-        android:text="Total: $20.99"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/listGuideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137" />
-
-    <TextView
-        android:id="@+id/listItemsChecked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/gabriela"
-        android:text="Items checked: 7/10"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/listItems"
-        app:layout_constraintStart_toStartOf="@+id/listTotal"
-        app:layout_constraintTop_toBottomOf="@+id/listTotal" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/listItemsChecked"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fontFamily="@font/gabriela"-->
+    <!--        android:text="Items checked: 7/10"-->
+    <!--        android:textAppearance="@style/TextAppearance.AppCompat.Display1"-->
+    <!--        android:textSize="24sp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/listItems"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/listTotal"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/listTotal" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

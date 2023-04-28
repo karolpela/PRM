@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="items">
+    <integer-array name="items">
         <item>@drawable/item_cake</item>
         <item>@drawable/item_cherry</item>
         <item>@drawable/item_donut</item>
@@ -16,5 +16,5 @@
         <item>@drawable/item_strawberry</item>
         <item>@drawable/item_tomato</item>
         <item>@drawable/item_watermelon</item>
-    </array>
+    </integer-array>
 </resources>

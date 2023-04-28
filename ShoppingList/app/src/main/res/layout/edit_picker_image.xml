@@ -10,6 +10,7 @@
         android:id="@+id/editPickerSelectedBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:importantForAccessibility="no"
         android:visibility="invisible"
         app:srcCompat="@drawable/image_highlight" />
 
@@ -17,6 +18,7 @@
         android:id="@+id/editPickerImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/item_image_description"
         android:padding="16dp"
         android:visibility="visible"
         tools:srcCompat="@tools:sample/avatars" />

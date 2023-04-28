@@ -17,5 +17,4 @@ class ListItemCallback(val notSorted: List<ListItem>, val sorted: List<ListItem>
         // This works because ListItem is a dataclass, so it has equals() implemented
         return notSorted[oldItemPosition] == sorted[newItemPosition]
     }
-
 }

@@ -1,6 +1,5 @@
 package pl.edu.pjwstk.s20265.shoppinglist.adapters
 
-import android.app.AlertDialog
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -8,15 +7,16 @@ import android.view.ViewGroup
 import androidx.core.os.HandlerCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import java.math.BigDecimal
 import pl.edu.pjwstk.s20265.shoppinglist.ListItemCallback
+import pl.edu.pjwstk.s20265.shoppinglist.MainActivity
 import pl.edu.pjwstk.s20265.shoppinglist.Navigable
 import pl.edu.pjwstk.s20265.shoppinglist.R
 import pl.edu.pjwstk.s20265.shoppinglist.data.DataSource
 import pl.edu.pjwstk.s20265.shoppinglist.databinding.ListItemBinding
 import pl.edu.pjwstk.s20265.shoppinglist.model.ListItem
-import java.math.BigDecimal
 
-//TODO create a viewholder for total and items checked?
+// TODO create a viewholder for total and items checked?
 
 class ListItemViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(listItem: ListItem) {
@@ -30,40 +30,26 @@ class ListItemViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder
 
 class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
 
-    private val data = mutableListOf<ListItem>()
+    internal val data = mutableListOf<ListItem>()
     private val handler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
+    var selectedIndex: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
-        val binding = ListItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
+        val binding = ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListItemViewHolder(binding).also { vh ->
             binding.root.setOnClickListener {
                 (it.context as? Navigable)?.navigate(
                     Navigable.Destination.Details,
-                    vh.layoutPosition
+                    DataSource.listItems.indexOf(data[vh.layoutPosition])
                 )
             }
             binding.root.setOnLongClickListener {
-                val dialog = AlertDialog.Builder(parent.context)
-                    .setTitle(parent.context.getString(R.string.list_dialog_delete_title))
-                    .setMessage(parent.context.getString(R.string.list_dialog_delete_message))
-                    .setPositiveButton(
-                        parent.context.getString(R.string.dialog_button_delete)
-                    ) { _, _ ->
-                        data.removeAt(vh.layoutPosition)
-                        notifyItemRemoved(vh.layoutPosition)
-                    }
-                    .setNegativeButton(parent.context.getString(R.string.dialog_button_cancel)) { _, _ -> }
-                    .create()
-                dialog.show()
-                return@setOnLongClickListener true
+                selectedIndex = vh.layoutPosition
+                (parent.context as MainActivity).showDeleteDialog()
+                return@setOnLongClickListener true // no cleaner way to do this?
             }
         }
     }
-
 
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
         holder.bind(data[position])
@@ -76,23 +62,18 @@ class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
         data.clear()
         data.addAll(newData)
         val result = DiffUtil.calculateDiff(callback)
-        handler.post {
-            result.dispatchUpdatesTo(this)
-        }
+        handler.post { result.dispatchUpdatesTo(this) }
     }
 
     fun sort() {
         val notSorted = data.toList() // makes a copy of data
-        data.sortBy { it.name }
+        data.sortBy { it.name.lowercase() }
         val callback = ListItemCallback(notSorted, data)
         val result = DiffUtil.calculateDiff(callback)
-        handler.post {
-            result.dispatchUpdatesTo(this)
-        }
+        handler.post { result.dispatchUpdatesTo(this) }
     }
 
     fun getTotalPrice(): BigDecimal {
         return data.sumOf { item -> item.price * BigDecimal(item.count) }
     }
 }
-

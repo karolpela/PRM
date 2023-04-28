@@ -11,24 +11,24 @@ import pl.edu.pjwstk.s20265.shoppinglist.data.DataSource
 import pl.edu.pjwstk.s20265.shoppinglist.databinding.FragmentEditBinding
 import pl.edu.pjwstk.s20265.shoppinglist.model.ListItem
 
-class EditFragment(private val itemIndex: Int) : Fragment() {
+class EditFragment(private val itemIndex: Int?) : Fragment() {
 
     private lateinit var binding: FragmentEditBinding
     private lateinit var adapter: ItemImagesAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        return FragmentEditBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
+        return FragmentEditBinding.inflate(inflater, container, false).also { binding = it }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var item: ListItem? = null;
-        if (itemIndex != -1) {
+        var item: ListItem? = null
+        if (itemIndex != null) {
             item = DataSource.listItems[itemIndex]
             binding.editItemName.setText(item.name)
             binding.editItemPrice.setText(item.price.toString())
@@ -44,20 +44,20 @@ class EditFragment(private val itemIndex: Int) : Fragment() {
         }
 
         binding.editButtonSave.setOnClickListener {
-            val newItem = ListItem(
-                binding.editItemName.text.toString(),
-                binding.editItemPrice.text.toString().toBigDecimal(),
-                binding.editItemCount.text.toString().toInt(),
-                binding.editItemNotes.text.toString(),
-                adapter.selectedResId
-            )
+            val newItem =
+                ListItem(
+                    binding.editItemName.text.toString(),
+                    (binding.editItemPrice.text.toString().ifBlank { "0" }).toBigDecimal(),
+                    (binding.editItemCount.text.toString().ifBlank { "0" }).toInt(),
+                    binding.editItemNotes.text.toString(),
+                    adapter.selectedResId
+                )
 
-            if (itemIndex != -1) { //TODO change to null?
+            if (itemIndex != null) {
                 DataSource.listItems[itemIndex] = newItem
             } else {
                 DataSource.listItems.add(newItem)
             }
-
             // This makes the transition back to List fragment slide out instead of sliding in
             parentFragmentManager.popBackStack()
         }

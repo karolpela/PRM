@@ -16,11 +16,11 @@ class DetailsFragment(private val itemId: Int) : Fragment() {
     private lateinit var item: ListItem
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        return FragmentDetailsBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
+        return FragmentDetailsBinding.inflate(inflater, container, false).also { binding = it }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,7 +34,6 @@ class DetailsFragment(private val itemId: Int) : Fragment() {
         binding.detailsItemPrice.text = DataSource.priceFormat.format(item.price)
         binding.detailsItemCount.text = getString(R.string.list_item_count, item.count)
         binding.detailsItemNotes.text = item.notes
-
 
         binding.detailsButtonEdit.setOnClickListener {
             (activity as? Navigable)?.navigate(Navigable.Destination.Edit, itemId)

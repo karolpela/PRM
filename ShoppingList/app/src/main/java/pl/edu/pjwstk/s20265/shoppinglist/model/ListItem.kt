@@ -8,6 +8,5 @@ data class ListItem(
     val price: BigDecimal,
     val count: Int,
     val notes: String,
-    @DrawableRes
-    val resId: Int
+    @DrawableRes val resId: Int
 )
