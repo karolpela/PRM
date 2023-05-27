@@ -1,20 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <integer-array name="items">
-        <item>@drawable/item_cake</item>
-        <item>@drawable/item_cherry</item>
-        <item>@drawable/item_donut</item>
-        <item>@drawable/item_eggplant</item>
-        <item>@drawable/item_grape</item>
-        <item>@drawable/item_icecream</item>
-        <item>@drawable/item_mushroom</item>
-        <item>@drawable/item_onigiri</item>
-        <item>@drawable/item_peach</item>
-        <item>@drawable/item_pear</item>
-        <item>@drawable/item_pomelo</item>
-        <item>@drawable/item_shrimp</item>
-        <item>@drawable/item_strawberry</item>
-        <item>@drawable/item_tomato</item>
-        <item>@drawable/item_watermelon</item>
-    </integer-array>
-</resources>
+<resources />

@@ -1,6 +1,7 @@
 package pl.edu.pjwstk.s20265.shoppinglist
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import pl.edu.pjwstk.s20265.shoppinglist.data.DataSource
@@ -68,12 +69,21 @@ class MainActivity : AppCompatActivity(), Navigable, DeleteDialogFragment.Delete
 
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         val adapter = listFragment.adapter
-        DataSource.listItems.remove(
-            adapter.data[adapter.selectedIndex!!]
-        ) // works because data class implement equals()
+        DataSource.listItems.remove(adapter.data[adapter.selectedIndex!!])
+        adapter.removeItem(adapter.selectedIndex!!)
+        // works because data class implement equals()
         // data.removeAt(vh.layoutPosition)
-        adapter.replace(DataSource.listItems)
-        adapter.notifyItemRemoved(adapter.selectedIndex!!)
+        //        listFragment.binding.listTotal.text =
+        //            getString(
+        //                R.string.list_total,
+        //                DataSource.priceFormat.format(DataSource.getTotalPrice())
+        //            )
+        Toast.makeText(
+                applicationContext,
+                getString(R.string.toast_item_deleted),
+                Toast.LENGTH_SHORT
+            )
+            .show()
     }
 
     override fun onDialogNegativeClick(dialog: DialogFragment) {}

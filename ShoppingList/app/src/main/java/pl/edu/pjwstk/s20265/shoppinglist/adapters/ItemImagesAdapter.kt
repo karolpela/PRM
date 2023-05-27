@@ -17,7 +17,7 @@ class ItemImageViewHolder(val binding: EditPickerImageBinding) :
     }
 }
 
-class ItemImagesAdapter(private val resId: Int?) : RecyclerView.Adapter<ItemImageViewHolder>() {
+class ItemImagesAdapter(resId: Int?) : RecyclerView.Adapter<ItemImageViewHolder>() {
     private var images =
         listOf(
             R.drawable.item_cake,
@@ -35,7 +35,7 @@ class ItemImagesAdapter(private val resId: Int?) : RecyclerView.Adapter<ItemImag
             R.drawable.item_strawberry,
             R.drawable.item_tomato,
             R.drawable.item_watermelon,
-        )
+        ) // TODO maybe move to arrays.xml
 
     //    private var images = ArrayList<Int>()
 

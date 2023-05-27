@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import java.text.NumberFormat
 import pl.edu.pjwstk.s20265.shoppinglist.Navigable
 import pl.edu.pjwstk.s20265.shoppinglist.R
 import pl.edu.pjwstk.s20265.shoppinglist.adapters.ListItemsAdapter
@@ -15,7 +14,7 @@ import pl.edu.pjwstk.s20265.shoppinglist.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
 
-    private lateinit var binding: FragmentListBinding
+    lateinit var binding: FragmentListBinding
     lateinit var adapter: ListItemsAdapter
 
     override fun onCreateView(
@@ -49,17 +48,15 @@ class ListFragment : Fragment() {
         }
 
         binding.listTotal.text =
-            getString(R.string.list_total, priceFormat.format(adapter.getTotalPrice()))
+            getString(
+                R.string.list_total,
+                DataSource.priceFormat.format(DataSource.getTotalPrice())
+            )
     }
 
     override fun onStart() {
         super.onStart()
         adapter.replace(DataSource.listItems)
         adapter.sort()
-    }
-
-    companion object {
-        val priceFormat: NumberFormat =
-            NumberFormat.getCurrencyInstance().also { it.maximumFractionDigits = 2 }
     }
 }

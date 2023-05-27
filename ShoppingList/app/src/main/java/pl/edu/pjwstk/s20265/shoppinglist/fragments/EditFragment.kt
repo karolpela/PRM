@@ -1,5 +1,6 @@
 package pl.edu.pjwstk.s20265.shoppinglist.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ class EditFragment(private val itemIndex: Int?) : Fragment() {
         return FragmentEditBinding.inflate(inflater, container, false).also { binding = it }.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

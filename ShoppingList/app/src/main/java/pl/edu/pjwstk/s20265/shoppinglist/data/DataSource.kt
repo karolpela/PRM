@@ -15,4 +15,8 @@ object DataSource {
 
     val priceFormat: NumberFormat =
         NumberFormat.getCurrencyInstance().also { it.maximumFractionDigits = 2 }
+
+    fun getTotalPrice(): BigDecimal {
+        return listItems.sumOf { item -> item.price * BigDecimal(item.count) }
+    }
 }

@@ -73,6 +73,11 @@ class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
         handler.post { result.dispatchUpdatesTo(this) }
     }
 
+    fun removeItem(index: Int) {
+        data.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
     fun getTotalPrice(): BigDecimal {
         return data.sumOf { item -> item.price * BigDecimal(item.count) }
     }
