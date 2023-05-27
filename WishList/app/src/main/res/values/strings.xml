@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Wish List</string>
+    <string name="list_fab_action">Add</string>
+    <string name="list_total">Total: %1$s</string>
+    <string name="list_item_count">x%1$d</string>
+    <string name="list_dialog_delete_title">Delete item?</string>
+    <string name="list_dialog_delete_message">This will permanently delete this item.</string>
+    <string name="dialog_button_delete">Delete</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="edit_label_count">Count</string>
+    <string name="edit_label_notes">Notes</string>
+    <string name="edit_label_name">Name</string>
+    <string name="edit_label_price">Price</string>
+    <string name="item_image_description">Item image</string>
+    <string name="button_edit_description">Edit</string>
+    <string name="button_save_description">Save</string>
+    <string name="item_image_picker_description">Item image picker</string>
+    <string name="toast_item_deleted">Item deleted</string>
+</resources>
