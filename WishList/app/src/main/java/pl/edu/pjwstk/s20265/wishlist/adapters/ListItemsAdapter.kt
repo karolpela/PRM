@@ -18,7 +18,7 @@ import pl.edu.pjwstk.s20265.wishlist.model.ListItem
 class ListItemViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(listItem: ListItem) {
         binding.itemName.text = listItem.name
-        binding.itemImage.setImageResource(listItem.resId)
+//        binding.itemImage.setImageResource(listItem.photoUri)
     }
 }
 

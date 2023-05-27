@@ -38,9 +38,9 @@ class DetailsFragment : Fragment() {
                 listItem = database.listItems.getListItem(listItemId)
                 requireActivity().runOnUiThread {
                     binding.detailsItemName.text = listItem.name
-                    binding.detailsItemImage.setImageResource(
-                        resources.getIdentifier(listItem.photo, "drawable", requireContext().packageName)
-                    )
+//                    binding.detailsItemImage.setImageResource(
+//                        resources.getIdentifier(listItem.photoUriString, "drawable", requireContext().packageName)
+//                    )
                 }
             }
         }

@@ -8,6 +8,6 @@ data class ListItemEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val name: String,
-    val photo: String,
+    val photoUriString: String,
     //TODO add location
 )

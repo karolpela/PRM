@@ -12,49 +12,6 @@
         android:layout_height="wrap_content">
 
 
-        <EditText
-            android:id="@+id/editItemCount"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="24dp"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="@+id/editItemPrice"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/editItemPrice"
-            app:layout_constraintTop_toBottomOf="@+id/editItemPrice" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/editItemImagePicker"
-            android:layout_width="0dp"
-            android:layout_height="128dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="96dp"
-            android:layout_marginEnd="32dp"
-            android:contentDescription="@string/item_image_picker_description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/edit_picker_image" />
-
-        <TextView
-            android:id="@+id/editLabelItemCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@id/editItemCount"
-            android:text="@string/edit_label_count"
-            app:layout_constraintBaseline_toBaselineOf="@+id/editItemCount"
-            app:layout_constraintStart_toStartOf="@+id/editLabelItemPrice" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@id/editItemNotes"
-            android:text="@string/edit_label_notes"
-            app:layout_constraintBaseline_toBaselineOf="@+id/editItemNotes"
-            app:layout_constraintStart_toStartOf="@+id/editLabelItemCount" />
-
         <TextView
             android:id="@+id/editLabelItemName"
             android:layout_width="wrap_content"
@@ -64,19 +21,6 @@
             android:text="@string/edit_label_name"
             app:layout_constraintBaseline_toBaselineOf="@+id/editItemName"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/editItemNotes"
-            android:layout_width="0dp"
-            android:layout_height="96dp"
-            android:layout_marginTop="24dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:importantForAutofill="no"
-            android:inputType="textMultiLine"
-            app:layout_constraintEnd_toEndOf="@+id/editItemCount"
-            app:layout_constraintStart_toStartOf="@+id/editItemCount"
-            app:layout_constraintTop_toBottomOf="@+id/editItemCount" />
 
         <EditText
             android:id="@+id/editItemPrice"
@@ -96,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:labelFor="@id/editItemPrice"
-            android:text="@string/edit_label_price"
+            android:text="@string/edit_label_location"
             app:layout_constraintBaseline_toBaselineOf="@+id/editItemPrice"
             app:layout_constraintStart_toStartOf="@+id/editLabelItemName" />
 
@@ -105,7 +49,6 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
             android:importantForAutofill="no"
@@ -113,7 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/editLabelItemName"
-            app:layout_constraintTop_toBottomOf="@+id/editItemImagePicker" />
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/editButtonSave"
@@ -126,6 +69,28 @@
             android:src="@drawable/baseline_save_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <pl.edu.pjwstk.s20265.wishlist.views.PhotoView
+            android:id="@+id/editItemPhoto"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="@string/item_photo_description"
+            android:src="@drawable/baseline_camera_alt_24"
+            app:layout_constraintBottom_toTopOf="@+id/editItemName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="350dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

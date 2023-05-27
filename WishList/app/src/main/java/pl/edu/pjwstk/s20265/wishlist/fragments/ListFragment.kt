@@ -1,5 +1,6 @@
 package pl.edu.pjwstk.s20265.wishlist.fragments
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import pl.edu.pjwstk.s20265.wishlist.Navigable
-import pl.edu.pjwstk.s20265.wishlist.R
 import pl.edu.pjwstk.s20265.wishlist.adapters.ListItemsAdapter
 import pl.edu.pjwstk.s20265.wishlist.data.ListItemDatabase
 import pl.edu.pjwstk.s20265.wishlist.databinding.FragmentListBinding
@@ -60,11 +60,7 @@ class ListFragment : Fragment() {
                 ListItem(
                     entity.id,
                     entity.name,
-                    resources.getIdentifier(
-                        entity.photo,
-                        "drawable",
-                        requireContext().packageName
-                    )
+                    Uri.parse(entity.photoUriString)
                 )
             }
         adapter.replace(listItems)
