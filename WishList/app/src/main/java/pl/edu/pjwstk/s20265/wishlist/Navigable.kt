@@ -6,7 +6,6 @@ interface Navigable {
         List,
         Add,
         Edit,
-        Details
     }
 
     fun navigate(to: Destination, id: Long? = null)

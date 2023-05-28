@@ -13,8 +13,7 @@ class PhotoView(context: Context, attrs: AttributeSet) :
     androidx.appcompat.widget.AppCompatImageView(context, attrs) {
 
     var text: String = ""
-    var photo: Bitmap? =
-        BitmapFactory.decodeResource(context.resources, R.drawable.baseline_camera_alt_24)
+    var photo: Bitmap? = null
         set(value) {
             field = value
             invalidate()
@@ -29,5 +28,6 @@ class PhotoView(context: Context, attrs: AttributeSet) :
     private fun drawPhoto(canvas: Canvas) = photo?.let {
         val rect = Rect(0, 0, width, height)
         canvas.drawBitmap(it, null, rect, defaultPaint)
+        foreground?.alpha = 0 // hide placeholder
     }
 }

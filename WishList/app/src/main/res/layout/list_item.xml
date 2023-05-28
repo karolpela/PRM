@@ -13,19 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <pl.edu.pjwstk.s20265.wishlist.views.PhotoView
             android:id="@+id/itemImage"
-            android:layout_width="64dp"
+            android:layout_width="0dp"
             android:layout_height="64dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:scaleType="fitCenter"
+            android:contentDescription="@string/item_photo_description"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="3:4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars"
-            android:contentDescription="@string/item_photo_description" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/itemName"

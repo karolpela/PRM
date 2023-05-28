@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:foregroundGravity="center"
     tools:context=".fragments.EditFragment">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +19,7 @@
             android:id="@+id/editLabelItemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="64dp"
             android:labelFor="@id/editItemName"
             android:text="@string/edit_label_name"
             app:layout_constraintBaseline_toBaselineOf="@+id/editItemName"
@@ -25,15 +28,17 @@
         <EditText
             android:id="@+id/editItemPrice"
             android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="24dp"
+            android:layout_height="96dp"
+            android:layout_marginBottom="32dp"
             android:ems="10"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
+            android:singleLine="false"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/editItemName"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/editItemName"
-            app:layout_constraintTop_toBottomOf="@+id/editItemName" />
+            app:layout_constraintStart_toStartOf="@+id/editItemName" />
 
         <TextView
             android:id="@+id/editLabelItemPrice"
@@ -49,14 +54,15 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="16dp"
             android:ems="10"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/editItemPrice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/editLabelItemName"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+            app:layout_constraintStart_toEndOf="@+id/editLabelItemName" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/editButtonSave"
@@ -70,27 +76,25 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+
         <pl.edu.pjwstk.s20265.wishlist.views.PhotoView
             android:id="@+id/editItemPhoto"
             android:layout_width="0dp"
-            android:layout_height="0dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
+            android:background="#E8E8E8"
             android:contentDescription="@string/item_photo_description"
-            android:src="@drawable/baseline_camera_alt_24"
+            android:foreground="@drawable/baseline_camera_alt_64"
+            android:foregroundGravity="center"
+            android:foregroundTint="#808080"
+            android:src="@drawable/baseline_camera_alt_64"
             app:layout_constraintBottom_toTopOf="@+id/editItemName"
+            app:layout_constraintDimensionRatio="3:4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="350dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

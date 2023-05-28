@@ -25,7 +25,7 @@ class ListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        database = ListItemDatabase.open(requireContext())
+        database = ListItemDatabase.open(requireContext().applicationContext)
     }
 
     override fun onCreateView(
@@ -56,11 +56,12 @@ class ListFragment : Fragment() {
 
     private fun loadData() = thread {
         val listItems =
-            ListItemDatabase.open(requireContext()).listItems.getAll().map { entity ->
+            database.listItems.getAll().map { entity ->
                 ListItem(
                     entity.id,
                     entity.name,
-                    Uri.parse(entity.photoUriString)
+                    Uri.parse(entity.photoUriString),
+                    entity.addedOn
                 )
             }
         adapter.replace(listItems)

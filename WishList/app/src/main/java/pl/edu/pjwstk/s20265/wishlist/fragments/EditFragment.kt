@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import pl.edu.pjwstk.s20265.wishlist.data.ListItemDatabase
 import pl.edu.pjwstk.s20265.wishlist.data.model.ListItemEntity
 import pl.edu.pjwstk.s20265.wishlist.databinding.FragmentEditBinding
+import java.time.LocalDateTime
 import kotlin.concurrent.thread
 
 private const val ARG_LIST_ITEM_ID = "list_item_id"
@@ -42,7 +43,7 @@ class EditFragment : Fragment() {
         cameraLauncher = registerForActivityResult(
             ActivityResultContracts.TakePicture(), onTakePhoto
         )
-        database = ListItemDatabase.open(requireContext())
+        database = ListItemDatabase.open(requireContext().applicationContext)
     }
 
     override fun onCreateView(
@@ -61,20 +62,25 @@ class EditFragment : Fragment() {
             listItem = listItemId?.let {
                 database.listItems.getListItem(it).also {
                     photoUri = Uri.parse(it.photoUriString)
+                    binding.editItemName.setText(it.name)
                 }
             }
             loadPhoto()
         }
 
-        binding.editItemPhoto.setOnClickListener { takePhoto(0) }
+        binding.editItemPhoto.setOnClickListener { takePhoto() }
 
         binding.editButtonSave.setOnClickListener {
-            val listItem = listItem?.copy(
+            val listItem = listItem?.let {
+                it.copy(
+                    name = binding.editItemName.text.toString(),
+                    photoUriString = photoUri.toString(),
+                    addedOn = it.addedOn
+                )
+            } ?: ListItemEntity(
                 name = binding.editItemName.text.toString(),
-                photoUriString = photoUri.toString()
-            ) ?: ListItemEntity(
-                name = binding.editItemName.text.toString(),
-                photoUriString = photoUri.toString()
+                photoUriString = photoUri.toString(), // keep in mind this writes "null" if Uri is null
+                addedOn = LocalDateTime.now()
             )
             this.listItem = listItem
 
@@ -90,7 +96,7 @@ class EditFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun takePhoto(listItemId: Long) {
+    private fun takePhoto() {
         val newPhotoUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
         } else {
@@ -98,7 +104,7 @@ class EditFragment : Fragment() {
         }
 
         val cv = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, "picture${listItemId}.jpg")
+            put(MediaStore.Images.Media.DISPLAY_NAME, "picture.jpg")
             put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
         }
         photoUri = requireContext().contentResolver.insert(newPhotoUri, cv)
@@ -108,9 +114,12 @@ class EditFragment : Fragment() {
 
     private fun loadPhoto() {
         photoUri?.let {
-            requireContext().contentResolver.openInputStream(it)?.use {
-                BitmapFactory.decodeStream(it)?.let {
-                    binding.editItemPhoto.photo = it
+            if (it.toString() != "null") {
+                requireContext().contentResolver.openInputStream(it)?.use {
+                    BitmapFactory.decodeStream(it)?.let {
+                        binding.editItemPhoto.photo = it
+                        return
+                    }
                 }
             }
         }

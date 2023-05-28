@@ -1,5 +1,7 @@
 package pl.edu.pjwstk.s20265.wishlist.adapters
 
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -18,9 +20,15 @@ import pl.edu.pjwstk.s20265.wishlist.model.ListItem
 class ListItemViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(listItem: ListItem) {
         binding.itemName.text = listItem.name
-//        binding.itemImage.setImageResource(listItem.photoUri)
+
+        if (listItem.photoUri.toString() != "null") {
+            binding.itemImage.photo =
+                binding.root.context.applicationContext.contentResolver.openInputStream(listItem.photoUri)
+                    .use { BitmapFactory.decodeStream(it) }
+        }
     }
 }
+
 
 class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
 
@@ -33,8 +41,7 @@ class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
         return ListItemViewHolder(binding).also { vh ->
             binding.root.setOnClickListener {
                 (it.context as? Navigable)?.navigate(
-                    Navigable.Destination.Details,
-                    data[vh.layoutPosition].id
+                    Navigable.Destination.Edit, data[vh.layoutPosition].id
                 )
             }
             binding.root.setOnLongClickListener {

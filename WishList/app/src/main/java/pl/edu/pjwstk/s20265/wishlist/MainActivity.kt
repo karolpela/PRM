@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import pl.edu.pjwstk.s20265.wishlist.fragments.DeleteDialogFragment
-import pl.edu.pjwstk.s20265.wishlist.fragments.DetailsFragment
 import pl.edu.pjwstk.s20265.wishlist.fragments.EditFragment
 import pl.edu.pjwstk.s20265.wishlist.fragments.ListFragment
 import pl.edu.pjwstk.s20265.wishlist.viewmodel.MainViewModel
@@ -48,15 +47,6 @@ class MainActivity : AppCompatActivity(), Navigable, DeleteDialogFragment.Delete
                             R.id.container, EditFragment::class.java, Bundle().apply {
                                 putLong("list_item_id", id ?: -1)
                             }, EditFragment::javaClass.name
-                        )
-                    }
-
-                    Navigable.Destination.Details -> {
-                        addToBackStack(DetailsFragment::javaClass.name)
-                        replace(
-                            R.id.container, DetailsFragment::class.java, Bundle().apply {
-                                putLong("list_item_id", id ?: -1)
-                            }, DetailsFragment::javaClass.name
                         )
                     }
                 }
