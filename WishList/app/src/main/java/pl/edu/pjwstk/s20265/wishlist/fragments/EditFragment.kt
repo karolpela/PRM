@@ -7,11 +7,17 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import pl.edu.pjwstk.s20265.wishlist.R
 import pl.edu.pjwstk.s20265.wishlist.data.ListItemDatabase
 import pl.edu.pjwstk.s20265.wishlist.data.model.ListItemEntity
 import pl.edu.pjwstk.s20265.wishlist.databinding.FragmentEditBinding
@@ -41,7 +47,8 @@ class EditFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         cameraLauncher = registerForActivityResult(
-            ActivityResultContracts.TakePicture(), onTakePhoto
+            ActivityResultContracts.TakePicture(),
+            onTakePhoto
         )
         database = ListItemDatabase.open(requireContext().applicationContext)
     }
@@ -56,6 +63,7 @@ class EditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupMenu()
 
         val listItemId = arguments?.getLong(ARG_LIST_ITEM_ID)
         thread {
@@ -82,13 +90,36 @@ class EditFragment : Fragment() {
                 photoUriString = photoUri.toString(), // keep in mind this writes "null" if Uri is null
                 addedOn = LocalDateTime.now()
             )
-            this.listItem = listItem
+            this.listItem = listItem // not used after saving, but just in case
 
             thread {
                 database.listItems.addListItem(listItem) // updates if item exists
             }
             parentFragmentManager.popBackStack()
         }
+    }
+
+    private fun setupMenu() {
+        requireActivity().addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.edit_fragment_menu, menu)
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+                    when (menuItem.itemId) {
+                        R.id.edit_action_delete -> {
+                            listItem?.let { thread { database.listItems.deleteListItem(it.id) } }
+                            parentFragmentManager.popBackStack()
+                            true
+                        }
+
+                        else -> {
+                            false
+                        }
+                    }
+            }, viewLifecycleOwner, Lifecycle.State.RESUMED
+        )
     }
 
     override fun onDestroy() {
@@ -111,7 +142,6 @@ class EditFragment : Fragment() {
         cameraLauncher.launch(photoUri)
     }
 
-
     private fun loadPhoto() {
         photoUri?.let {
             if (it.toString() != "null") {
@@ -124,4 +154,6 @@ class EditFragment : Fragment() {
             }
         }
     }
+
+
 }

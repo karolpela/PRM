@@ -36,7 +36,7 @@ class ListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        adapter.sort()
+        loadData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,7 +56,7 @@ class ListFragment : Fragment() {
 
     private fun loadData() = thread {
         val listItems =
-            database.listItems.getAll().map { entity ->
+            database.listItems.getAllSortedByDate().map { entity ->
                 ListItem(
                     entity.id,
                     entity.name,
@@ -67,12 +67,7 @@ class ListFragment : Fragment() {
         adapter.replace(listItems)
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        //TODO add something?
-        adapter.sort()
-    }
+    // deleted onStart?
 
     override fun onDestroy() {
         database.close()

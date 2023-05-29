@@ -12,4 +12,5 @@
     <string name="button_edit_description">Edit</string>
     <string name="button_save_description">Save</string>
     <string name="toast_item_deleted">Item deleted</string>
+    <string name="editActionDelete">Delete item</string>
 </resources>

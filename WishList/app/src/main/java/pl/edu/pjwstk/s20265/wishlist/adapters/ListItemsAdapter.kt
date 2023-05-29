@@ -68,7 +68,7 @@ class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
 
     fun sort() {
         val notSorted = data.toList() // makes a copy of data
-        data.sortBy { it.name.lowercase() }
+        data.sortBy { it.addedOn }
         val callback = ListItemCallback(notSorted, data)
         val result = DiffUtil.calculateDiff(callback)
         handler.post { result.dispatchUpdatesTo(this) }
