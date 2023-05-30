@@ -1,6 +1,7 @@
 package pl.edu.pjwstk.s20265.wishlist.data
 
 import androidx.room.TypeConverter
+import com.google.android.gms.maps.model.LatLng
 import java.time.LocalDateTime
 
 class Converters {

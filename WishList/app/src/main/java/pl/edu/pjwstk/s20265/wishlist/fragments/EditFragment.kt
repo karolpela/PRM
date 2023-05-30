@@ -88,7 +88,9 @@ class EditFragment : Fragment() {
             } ?: ListItemEntity(
                 name = binding.editItemName.text.toString(),
                 photoUriString = photoUri.toString(), // keep in mind this writes "null" if Uri is null
-                addedOn = LocalDateTime.now()
+                latitude = 0.0,
+                longitude = 0.0,
+                addedOn = LocalDateTime.now() //TODO change!
             )
             this.listItem = listItem // not used after saving, but just in case
 

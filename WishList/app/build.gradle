@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs).configureEach {
@@ -15,7 +16,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "pl.edu.pjwstk.s20265.wishlist"
+        applicationId 'pl.edu.pjwstk.s20265.wishlist'
         minSdk 26
         targetSdk 33
         versionCode 1
@@ -44,6 +45,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
     def room_version = "2.5.1"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"

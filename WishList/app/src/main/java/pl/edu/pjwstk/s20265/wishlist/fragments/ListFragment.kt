@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.model.LatLng
 import pl.edu.pjwstk.s20265.wishlist.Navigable
 import pl.edu.pjwstk.s20265.wishlist.adapters.ListItemsAdapter
 import pl.edu.pjwstk.s20265.wishlist.data.ListItemDatabase
@@ -61,6 +62,7 @@ class ListFragment : Fragment() {
                     entity.id,
                     entity.name,
                     Uri.parse(entity.photoUriString),
+                    LatLng(entity.latitude, entity.longitude),
                     entity.addedOn
                 )
             }

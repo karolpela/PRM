@@ -1,100 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:foregroundGravity="center"
-    tools:context=".fragments.EditFragment">
+    android:layout_height="match_parent">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editButtonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:contentDescription="@string/button_save_description"
+        android:src="@drawable/baseline_save_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:foregroundGravity="center"
+        tools:context=".fragments.EditFragment">
 
 
-        <TextView
-            android:id="@+id/editLabelItemName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:labelFor="@id/editItemName"
-            android:text="@string/edit_label_name"
-            app:layout_constraintBaseline_toBaselineOf="@+id/editItemName"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/editItemPrice"
-            android:layout_width="0dp"
-            android:layout_height="96dp"
-            android:layout_marginBottom="32dp"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal"
-            android:singleLine="false"
-            android:textAlignment="textEnd"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/editItemName"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/editItemName" />
-
-        <TextView
-            android:id="@+id/editLabelItemPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@id/editItemPrice"
-            android:text="@string/edit_label_location"
-            app:layout_constraintBaseline_toBaselineOf="@+id/editItemPrice"
-            app:layout_constraintStart_toStartOf="@+id/editLabelItemName" />
-
-        <EditText
-            android:id="@+id/editItemName"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginBottom="16dp"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/editItemPrice"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/editLabelItemName" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/editButtonSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:contentDescription="@string/button_save_description"
-            android:src="@drawable/baseline_save_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-        <pl.edu.pjwstk.s20265.wishlist.views.PhotoView
-            android:id="@+id/editItemPhoto"
-            android:layout_width="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="#E8E8E8"
-            android:contentDescription="@string/item_photo_description"
-            android:foreground="@drawable/baseline_camera_alt_64"
-            android:foregroundGravity="center"
-            android:foregroundTint="#808080"
-            android:src="@drawable/baseline_camera_alt_64"
-            app:layout_constraintBottom_toTopOf="@+id/editItemName"
-            app:layout_constraintDimensionRatio="3:4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_height="0dp" />
+            <EditText
+                android:id="@+id/editItemName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:ems="10"
+                android:fontFamily="@font/gabriela"
+                android:importantForAutofill="no"
+                android:singleLine="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@color/grey_fg"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="My dream item" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
+            <pl.edu.pjwstk.s20265.wishlist.views.PhotoView
+                android:id="@+id/editItemPhoto"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/grey_bg"
+                android:contentDescription="@string/item_photo_description"
+                android:foreground="@drawable/baseline_camera_alt_64"
+                android:foregroundGravity="center"
+                android:foregroundTint="@color/grey_fg"
+                app:layout_constraintBottom_toTopOf="@+id/editMapsFragment"
+                app:layout_constraintDimensionRatio="3:4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editItemName" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/editMapsFragment"
+                android:name="pl.edu.pjwstk.s20265.wishlist.fragments.MapsFragment"
+                android:layout_width="0dp"
+                android:layout_height="192dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
