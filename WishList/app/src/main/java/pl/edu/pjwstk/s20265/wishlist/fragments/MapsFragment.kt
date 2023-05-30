@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -41,8 +42,17 @@ class MapsFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
-        turnOnLocation(map)
+        turnOnLocation()
         map.setOnMapClickListener(::onMapClick)
+
+        map.setOnCameraMoveStartedListener {
+            view?.parent?.requestDisallowInterceptTouchEvent(true)
+
+        }
+
+        map.setOnCameraIdleListener {
+            view?.parent?.requestDisallowInterceptTouchEvent(false)
+        }
     }
 
     private fun onMapClick(latLng: LatLng) {
@@ -53,7 +63,8 @@ class MapsFragment : Fragment() {
         selectedLocation = latLng
     }
 
-    private fun turnOnLocation(googleMap: GoogleMap) {
+
+    private fun turnOnLocation() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
