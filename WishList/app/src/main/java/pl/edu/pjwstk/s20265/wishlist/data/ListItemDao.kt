@@ -19,7 +19,7 @@ interface ListItemDao {
     fun getListItem(id: Long): ListItemEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addListItem(listItem: ListItemEntity)
+    fun addListItem(listItem: ListItemEntity): Long
 
     @Update
     fun updateListItem(listItem: ListItemEntity)

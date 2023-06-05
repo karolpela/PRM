@@ -15,11 +15,10 @@ import pl.edu.pjwstk.s20265.wishlist.Navigable
 import pl.edu.pjwstk.s20265.wishlist.databinding.ListItemBinding
 import pl.edu.pjwstk.s20265.wishlist.model.ListItem
 
-// TODO create a viewholder for total and items checked?
-
 class ListItemViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(listItem: ListItem) {
         binding.itemName.text = listItem.name
+        binding.itemLocationString.text = listItem.locationString
 
         if (listItem.photoUri.toString() != "null") {
             binding.itemImage.photo =
@@ -33,7 +32,8 @@ class ListItemViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder
 class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
 
     internal val data = mutableListOf<ListItem>()
-    private val handler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
+
+    //    private val handler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
     var selectedIndex: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
@@ -59,11 +59,11 @@ class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
     override fun getItemCount(): Int = data.size
 
     fun replace(newData: List<ListItem>) {
-        val callback = ListItemCallback(data, newData)
+        val callback = ListItemCallback(data.toList(), newData)
         data.clear()
         data.addAll(newData)
         val result = DiffUtil.calculateDiff(callback)
-        handler.post { result.dispatchUpdatesTo(this) }
+        result.dispatchUpdatesTo(this)
     }
 
     fun sort() {
@@ -71,7 +71,7 @@ class ListItemsAdapter : RecyclerView.Adapter<ListItemViewHolder>() {
         data.sortBy { it.addedOn }
         val callback = ListItemCallback(notSorted, data)
         val result = DiffUtil.calculateDiff(callback)
-        handler.post { result.dispatchUpdatesTo(this) }
+        result.dispatchUpdatesTo(this)
     }
 
     fun removeItem(layoutPosition: Int): ListItem {

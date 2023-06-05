@@ -7,18 +7,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.Circle
-import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import pl.edu.pjwstk.s20265.wishlist.R
 
@@ -40,6 +38,7 @@ class MapsFragment : Fragment() {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
         turnOnLocation()
@@ -53,16 +52,33 @@ class MapsFragment : Fragment() {
         map.setOnCameraIdleListener {
             view?.parent?.requestDisallowInterceptTouchEvent(false)
         }
+
+
+        selectedLocation?.let {
+            onMapClick(it)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 17f))
+        }
+        if (selectedLocation == null) {
+            LocationServices.getFusedLocationProviderClient(requireActivity()).lastLocation.addOnSuccessListener {
+                it?.let {
+                    map.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            LatLng(it.latitude, it.longitude), 17f
+                        )
+                    )
+                }
+            }
+
+        }
     }
 
-    private fun onMapClick(latLng: LatLng) {
+    fun onMapClick(latLng: LatLng) {
+        if (!this::map.isInitialized) return
         map.clear()
-        val marker = MarkerOptions()
-            .position(latLng)
+        val marker = MarkerOptions().position(latLng)
         map.addMarker(marker)
         selectedLocation = latLng
     }
-
 
     private fun turnOnLocation() {
         if (ActivityCompat.checkSelfPermission(

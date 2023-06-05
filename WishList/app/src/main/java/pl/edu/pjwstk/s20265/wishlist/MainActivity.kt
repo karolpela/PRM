@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity(), Navigable, DeleteDialogFragment.Delete
         listFragment = ListFragment()
         supportFragmentManager.beginTransaction()
             .add(R.id.container, listFragment, listFragment.javaClass.name).commit()
+
+        Notifications.createChannel(this)
     }
 
     override fun navigate(to: Navigable.Destination, id: Long?) {

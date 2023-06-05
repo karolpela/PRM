@@ -11,8 +11,9 @@ data class ListItemEntity(
     val id: Long = 0,
     val name: String,
     val photoUriString: String,
-    val latitude: Double,
-    val longitude: Double,
+    val latitude: Double?,
+    val longitude: Double?,
+    val locationString: String?,
     val addedOn: LocalDateTime
     //TODO add location
 )

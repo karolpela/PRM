@@ -9,6 +9,7 @@ data class ListItem(
     val id: Long,
     val name: String,
     val photoUri: Uri,
-    val location: LatLng,
+    val location: LatLng?,
+    val locationString: String?,
     val addedOn: LocalDateTime
 )

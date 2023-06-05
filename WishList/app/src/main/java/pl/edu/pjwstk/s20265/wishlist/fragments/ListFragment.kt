@@ -56,20 +56,27 @@ class ListFragment : Fragment() {
     }
 
     private fun loadData() = thread {
-        val listItems =
-            database.listItems.getAllSortedByDate().map { entity ->
-                ListItem(
-                    entity.id,
-                    entity.name,
-                    Uri.parse(entity.photoUriString),
-                    LatLng(entity.latitude, entity.longitude),
-                    entity.addedOn
-                )
-            }
-        adapter.replace(listItems)
+        val listItems = database.listItems.getAllSortedByDate().map { entity ->
+            ListItem(
+                entity.id,
+                entity.name,
+                Uri.parse(entity.photoUriString),
+                if (entity.latitude != null && entity.longitude != null) LatLng(
+                    entity.latitude, entity.longitude
+                ) else null,
+                entity.locationString,
+                entity.addedOn
+            )
+        }
+        requireActivity().runOnUiThread {
+            adapter.replace(listItems)
+        }
     }
 
-    // deleted onStart?
+    override fun onStart() {
+        super.onStart()
+        loadData()
+    }
 
     override fun onDestroy() {
         database.close()

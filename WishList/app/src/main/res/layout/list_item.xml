@@ -40,23 +40,14 @@
             app:layout_constraintTop_toTopOf="@+id/itemImage" />
 
         <TextView
-            android:id="@+id/itemPrice"
+            android:id="@+id/itemLocationString"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            tools:text="$0.99"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             app:layout_constraintStart_toStartOf="@+id/itemName"
-            app:layout_constraintTop_toBottomOf="@+id/itemName" />
+            app:layout_constraintTop_toBottomOf="@+id/itemName"
+            tools:text="Warszawa, Koszykowa 80" />
 
-        <TextView
-            android:id="@+id/itemCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            tools:text="x1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            app:layout_constraintStart_toEndOf="@+id/itemPrice"
-            app:layout_constraintTop_toTopOf="@+id/itemPrice" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
