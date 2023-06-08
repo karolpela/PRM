@@ -21,7 +21,7 @@ object Geofencing {
     fun createGeofence(context: Context, latLng: LatLng, id: Long) {
         val geofence =
             Geofence.Builder().setCircularRegion(latLng.latitude, latLng.longitude, FENCE_RADIUS)
-                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL)
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER) // removed DWELL, hope this still works
                 .setRequestId("item${id}")
                 .setExpirationDuration(Geofence.NEVER_EXPIRE).build()
 

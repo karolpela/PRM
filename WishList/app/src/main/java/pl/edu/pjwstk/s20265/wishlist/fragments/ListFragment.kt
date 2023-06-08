@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.model.LatLng
 import pl.edu.pjwstk.s20265.wishlist.Navigable
@@ -14,7 +13,6 @@ import pl.edu.pjwstk.s20265.wishlist.adapters.ListItemsAdapter
 import pl.edu.pjwstk.s20265.wishlist.data.ListItemDatabase
 import pl.edu.pjwstk.s20265.wishlist.databinding.FragmentListBinding
 import pl.edu.pjwstk.s20265.wishlist.model.ListItem
-import pl.edu.pjwstk.s20265.wishlist.viewmodel.MainViewModel
 import kotlin.concurrent.thread
 
 class ListFragment : Fragment() {
@@ -22,7 +20,6 @@ class ListFragment : Fragment() {
     lateinit var binding: FragmentListBinding
     lateinit var adapter: ListItemsAdapter
     lateinit var database: ListItemDatabase
-    val vm: MainViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +58,7 @@ class ListFragment : Fragment() {
                 entity.id,
                 entity.name,
                 Uri.parse(entity.photoUriString),
+                entity.note,
                 if (entity.latitude != null && entity.longitude != null) LatLng(
                     entity.latitude, entity.longitude
                 ) else null,

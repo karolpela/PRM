@@ -77,6 +77,7 @@ class EditFragment : Fragment() {
                 database.listItems.getListItem(it).also {
                     photoUri = Uri.parse(it.photoUriString)
                     binding.editItemName.setText(it.name)
+                    binding.editItemNote.setText(it.note)
                     binding.editMapsFragment.getFragment<MapsFragment>().apply {
                         if (it.latitude != null && it.longitude != null) {
                             selectedLocation = LatLng(it.latitude, it.longitude).also {
@@ -106,6 +107,7 @@ class EditFragment : Fragment() {
                 it.copy(
                     name = binding.editItemName.text.toString(),
                     photoUriString = photoUri.toString(),
+                    note = binding.editItemNote.text.toString(),
                     latitude = latitude,
                     longitude = longitude,
                     locationString = locationString,
@@ -114,6 +116,7 @@ class EditFragment : Fragment() {
             } ?: ListItemEntity(
                 name = binding.editItemName.text.toString(),
                 photoUriString = photoUri.toString(), // keep in mind this writes "null" if Uri is null
+                note = binding.editItemNote.text.toString(),
                 latitude = latitude,
                 longitude = longitude,
                 locationString = locationString,
@@ -182,6 +185,8 @@ class EditFragment : Fragment() {
 
 
     private fun loadPhoto() {
+        // Add property text
+        binding.editItemPhoto.text = listItem?.note ?: ""
         photoUri?.let {
             if (it.toString() != "null") {
                 requireContext().contentResolver.openInputStream(it)?.use {
@@ -193,6 +198,4 @@ class EditFragment : Fragment() {
             }
         }
     }
-
-
 }

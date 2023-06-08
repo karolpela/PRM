@@ -1,12 +1,8 @@
 package pl.edu.pjwstk.s20265.wishlist.adapters
 
 import android.graphics.BitmapFactory
-import android.net.Uri
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.HandlerCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.edu.pjwstk.s20265.wishlist.ListItemCallback
@@ -25,6 +21,7 @@ class ListItemViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder
                 binding.root.context.applicationContext.contentResolver.openInputStream(listItem.photoUri)
                     .use { BitmapFactory.decodeStream(it) }
         }
+        binding.itemImage.text = listItem.note
     }
 }
 
