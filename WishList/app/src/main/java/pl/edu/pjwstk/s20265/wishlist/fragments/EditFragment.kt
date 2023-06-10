@@ -2,6 +2,7 @@ package pl.edu.pjwstk.s20265.wishlist.fragments
 
 import android.content.ContentValues
 import android.graphics.BitmapFactory
+import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
 import android.os.Build
@@ -101,34 +102,41 @@ class EditFragment : Fragment() {
 
             val latLng: LatLng? =
                 if (latitude != null && longitude != null) LatLng(latitude, longitude) else null
-            val locationString: String? = latLng?.let { locationToString(it) }
 
-            val listItem = listItem?.let {
-                it.copy(
+            val buildItems = { locationString: String? ->
+                val listItem = listItem?.let {
+                    it.copy(
+                        name = binding.editItemName.text.toString(),
+                        photoUriString = photoUri.toString(),
+                        note = binding.editItemNote.text.toString(),
+                        latitude = latitude,
+                        longitude = longitude,
+                        locationString = locationString,
+                        addedOn = it.addedOn
+                    )
+                } ?: ListItemEntity(
                     name = binding.editItemName.text.toString(),
-                    photoUriString = photoUri.toString(),
+                    photoUriString = photoUri.toString(), // keep in mind this writes "null" if Uri is null
                     note = binding.editItemNote.text.toString(),
                     latitude = latitude,
                     longitude = longitude,
                     locationString = locationString,
-                    addedOn = it.addedOn
+                    addedOn = LocalDateTime.now()
                 )
-            } ?: ListItemEntity(
-                name = binding.editItemName.text.toString(),
-                photoUriString = photoUri.toString(), // keep in mind this writes "null" if Uri is null
-                note = binding.editItemNote.text.toString(),
-                latitude = latitude,
-                longitude = longitude,
-                locationString = locationString,
-                addedOn = LocalDateTime.now()
-            )
-            this.listItem = listItem // not used after saving, but just in case
+                this.listItem = listItem // not used after saving, but just in case
 
-            thread {
-                val newId = database.listItems.addListItem(listItem) // updates if item exists
-                latLng?.let { Geofencing.createGeofence(requireContext(), it, newId) }
+                thread {
+                    val newId = database.listItems.addListItem(listItem) // updates if item exists
+                    latLng?.let { Geofencing.createGeofence(requireContext(), it, newId) }
+                }
+                parentFragmentManager.popBackStack()
             }
-            parentFragmentManager.popBackStack()
+
+            if (latitude != null && longitude != null) {
+                locationToString(LatLng(latitude, longitude), buildItems)
+            } else {
+                buildItems(null)
+            }
         }
     }
 
@@ -177,11 +185,20 @@ class EditFragment : Fragment() {
         cameraLauncher.launch(photoUri)
     }
 
-    private fun locationToString(latLng: LatLng): String? =
-        geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)?.firstOrNull()
-            ?.let { address ->
-                "${address.locality ?: ""} ${address.subLocality ?: ""} ${address.thoroughfare ?: ""} ${address.featureName ?: ""}"
-            }
+    private fun locationToString(latLng: LatLng, then: (String?) -> Unit) {
+        val afterResult: (List<Address>?) -> Unit = {
+            it?.firstOrNull()
+                ?.let { address ->
+                    "${address.locality ?: ""} ${address.subLocality ?: ""} ${address.thoroughfare ?: ""} ${address.featureName ?: ""}"
+                }?.let(then)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1, afterResult)
+        } else {
+            @Suppress("DEPRECATION")
+            geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1).run(afterResult)
+        }
+    }
 
 
     private fun loadPhoto() {
